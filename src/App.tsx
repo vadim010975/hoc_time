@@ -1,15 +1,12 @@
 import "./App.css";
 
-type VideoListProps = {
-  list: {
-    url: string,
-    date: string,
-  }[];
-}
-
 type VideoProps = {
   url: string,
   date: string,
+}
+
+type VideoListProps = {
+  list: VideoProps[];
 }
 
 type DateTimeProps = {
@@ -22,7 +19,7 @@ function DateTime(props: DateTimeProps) {
   )
 }
 
-const withData = (Component: any) => {
+function withData<T extends DateTimeProps>(Component: React.ComponentType<T>) {
 
   const WithData = (props: DateTimeProps) => {
 
@@ -34,30 +31,20 @@ const withData = (Component: any) => {
       hours = Math.trunc((Date.now() - new Date(props.date).getTime()) / (1000 * 60 * 60));
       if (hours < 1) {
         date = "12 минут назад";
+      } else {
+        date = "5 часов назад";
       }
-      date = "5 часов назад";
     }
 
-
-
-
     return (
-      <>
-        <Component {...props} date = {date}/>
-      </>
+        <Component {...props as T} date = {date}/>
     );
-
   }
 
   return WithData;
 }
 
-
-
-
-
 const DateTimePretty = withData(DateTime);
-
 
 function Video(props: VideoProps) {
   return (
@@ -80,7 +67,7 @@ export default function App() {
     },
     {
       url: 'https://www.youtube.com/embed/dVkK36KOcqs?rel=0&amp;controls=0&amp;showinfo=0',
-      date: '2018-03-03 12:10:00'
+      date: '2024-03-07 16:10:00'
     },
     {
       url: 'https://www.youtube.com/embed/xGRjCa49C6U?rel=0&amp;controls=0&amp;showinfo=0',
