@@ -6,7 +6,7 @@ type VideoProps = {
 }
 
 type VideoListProps = {
-  list: VideoProps[];
+  list: VideoProps[],
 }
 
 type DateTimeProps = {
@@ -56,7 +56,7 @@ function Video(props: VideoProps) {
 }
 
 function VideoList(props: VideoListProps) {
-  return props.list.map(item => <Video url={item.url} date={item.date} />);
+  return props.list.map((item, key) => <Video url={item.url} date={item.date} key={key} />);
 }
 
 export default function App() {
