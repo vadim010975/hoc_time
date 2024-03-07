@@ -37,9 +37,12 @@ function withData<T extends DateTimeProps>(Component: React.ComponentType<T>) {
     }
 
     return (
-        <Component {...props as T} date = {date}/>
+      <Component {...props as T} date={date} />
     );
   }
+
+  const displayName = Component.displayName || Component.name || "Component";
+  WithData.displayName = `withData(${displayName})`;
 
   return WithData;
 }
